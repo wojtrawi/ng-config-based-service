@@ -11,13 +11,15 @@ export function provideConfigInitializer(): Provider {
     multi: true,
     useFactory: () => {
       const configService = inject(ConfigService);
-      const loggerHelperService = inject(LoggerHelperService);
+      // const loggerHelperService = inject(LoggerHelperService);
 
-      return () =>
-        configService.load().pipe(
-          switchMap((config) => fetchLoggerClass(config)),
-          tap((loggerClass) => (loggerHelperService.loggerClass = loggerClass))
-        );
+      // return () =>
+      //   configService.load().pipe(
+      //     switchMap((config) => fetchLoggerClass(config)),
+      //     tap((loggerClass) => (loggerHelperService.loggerClass = loggerClass))
+      //   );
+
+      return () => configService.load();
     },
   };
 }

@@ -12,5 +12,6 @@ export class LocalLoggerService implements LoggerService {
 
   log(message: string): void {
     console.log(`[LocalLoggerService]: ${message}`);
+    console.log(this.http);
   }
 }

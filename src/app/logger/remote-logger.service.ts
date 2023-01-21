@@ -13,5 +13,6 @@ export class RemoteLoggerService implements LoggerService {
   log(message: string): void {
     // Call to monitoring service e.g. Sentry
     console.log(`[RemoteLoggerService]: ${message}`);
+    console.log(this.http);
   }
 }

@@ -14,6 +14,13 @@ export const LOGGER_CONCRETE_CLASS = new InjectionToken<Type<LoggerService>>(
 
 @Injectable({
   providedIn: 'root',
+})
+export class LoggerHelperService {
+  loggerClass: Type<LoggerService> | null = null;
+}
+
+@Injectable({
+  providedIn: 'root',
   // ---------------------------------
   // compile-time config
   // ---------------------------------
@@ -44,7 +51,11 @@ export const LOGGER_CONCRETE_CLASS = new InjectionToken<Type<LoggerService>>(
   // ---------------------------------
   // useClass:
   //   inject(CONFIG).mode === 'prod' ? RemoteLoggerService : LocalLoggerService,
-  useClass: inject(LOGGER_CONCRETE_CLASS),
+  // useClass: inject(LOGGER_CONCRETE_CLASS),
+  // ---------------------------------
+  // async runtime config
+  // ---------------------------------
+  useClass: inject(LoggerHelperService).loggerClass!,
 })
 export abstract class LoggerService {
   abstract log(message: string): void;

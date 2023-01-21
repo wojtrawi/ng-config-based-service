@@ -14,14 +14,15 @@ if (environment.production) {
   enableProdMode();
 }
 
-// platformBrowserDynamic().bootstrapModule(AppModule)
-//   .catch(err => console.error(err));
+platformBrowserDynamic()
+  .bootstrapModule(AppModule)
+  .catch((err) => console.error(err));
 
-(async function () {
-  const config = await fetchConfig();
-  const loggerClass = await fetchLoggerClass(config);
+// (async function () {
+//   const config = await fetchConfig();
+//   const loggerClass = await fetchLoggerClass(config);
 
-  platformBrowserDynamic([provideConfig(config), provideLogger(loggerClass)])
-    .bootstrapModule(AppModule)
-    .catch((err) => console.error(err));
-})();
+//   platformBrowserDynamic([provideConfig(config), provideLogger(loggerClass)])
+//     .bootstrapModule(AppModule)
+//     .catch((err) => console.error(err));
+// })();

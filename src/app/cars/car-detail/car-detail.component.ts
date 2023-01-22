@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
 
-import { CARS_SERVICE, CarsService } from '../cars.service';
+import { CarsService } from '../service';
 
 @Component({
   selector: 'app-car-detail',
@@ -8,14 +8,9 @@ import { CARS_SERVICE, CarsService } from '../cars.service';
   styleUrls: ['./car-detail.component.scss'],
 })
 export class CarDetailComponent {
-  // private readonly carsService = inject(CARS_SERVICE);
   private readonly carsService = inject(CarsService);
 
   constructor() {
     console.log(`[CarDetailComponent]: carsService ${this.carsService}`);
-
-    // setTimeout(() => {
-    //   console.log(`[CarDetailComponent]: carsService 2s ${this.carsService}`);
-    // }, 2000);
   }
 }

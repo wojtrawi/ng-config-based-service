@@ -5,12 +5,12 @@ import { CarsRoutingModule } from './cars-routing.module';
 import { CarsComponent } from './cars.component';
 import { CAR_SECRET } from './car.token';
 import { CarDetailComponent } from './car-detail/car-detail.component';
-import { CarsInitializerDirective } from './cars-initializer.directive';
 import { CarsShellComponent } from './cars-shell/cars-shell.component';
+import { provideCars } from './service';
 
 @NgModule({
-  declarations: [CarsComponent, CarDetailComponent, CarsInitializerDirective, CarsShellComponent],
+  declarations: [CarsComponent, CarDetailComponent, CarsShellComponent],
   imports: [CommonModule, CarsRoutingModule],
-  providers: [{ provide: CAR_SECRET, useValue: 'xyz' }],
+  providers: [{ provide: CAR_SECRET, useValue: 'xyz' }, provideCars()],
 })
 export class CarsModule {}

@@ -2,12 +2,11 @@ import { enableProdMode } from '@angular/core';
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 
 import { AppModule } from './app/app.module';
+import { fetchConfig, provideConfig } from './app/config';
 import {
-  fetchConfig,
-  fetchLoggerClass,
-  provideConfig,
-  provideLogger,
-} from './app/config';
+  fetchConcreteLoggerClass,
+  provideConcreteLoggerClass,
+} from './app/logger';
 import { environment } from './environments/environment';
 
 if (environment.production) {
@@ -20,9 +19,12 @@ platformBrowserDynamic()
 
 // (async function () {
 //   const config = await fetchConfig();
-//   const loggerClass = await fetchLoggerClass(config);
+//   const concreteLoggerClass = await fetchConcreteLoggerClass(config);
 
-//   platformBrowserDynamic([provideConfig(config), provideLogger(loggerClass)])
+//   platformBrowserDynamic([
+//     provideConfig(config),
+//     provideConcreteLoggerClass(concreteLoggerClass),
+//   ])
 //     .bootstrapModule(AppModule)
 //     .catch((err) => console.error(err));
 // })();

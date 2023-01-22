@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, tap } from 'rxjs';
+import { BehaviorSubject, first, map, Observable, tap } from 'rxjs';
 
 import { Config } from './config';
 
@@ -21,8 +21,10 @@ export class ConfigService {
   private readonly state = new BehaviorSubject<ConfigState>(initialState);
 
   public readonly state$ = this.state.asObservable();
-  // Just to show it is not sync for everyone
-  public config: Config | null = null;
+  public readonly loadedData$ = this.state$.pipe(
+    first(({ isLoaded }) => isLoaded),
+    map(({ data }) => data!)
+  );
 
   constructor(private readonly http: HttpClient) {}
 
@@ -30,7 +32,6 @@ export class ConfigService {
     return this.http.get<Config>('assets/config.json').pipe(
       tap((config) => {
         console.log(`[ConfigService]: config value ${JSON.stringify(config)}`);
-        this.config = config;
         this.state.next({ isLoaded: true, data: config });
       })
     );

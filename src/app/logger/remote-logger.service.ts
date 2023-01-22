@@ -3,8 +3,8 @@ import { inject, Injectable } from '@angular/core';
 import { UserService } from '../user.service';
 import { LoggerService } from './logger.service';
 
-// @Injectable()
-@Injectable({ providedIn: 'root' })
+@Injectable()
+// @Injectable({ providedIn: 'root' })
 export class RemoteLoggerService implements LoggerService {
   private readonly userService = inject(UserService);
 

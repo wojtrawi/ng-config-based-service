@@ -10,6 +10,7 @@ import { Observable, switchMap, tap, map, catchError, of, first } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { CONFIG, ConfigService } from '../config';
 import { ENVIRONMENT } from '../environment.token';
+import { UserService } from '../user.service';
 import { ConcreteLoggerService } from './concrete-logger.service';
 
 import { LocalLoggerService } from './local-logger.service';
@@ -90,7 +91,7 @@ export class LoggerWrapperService {
 @Injectable({
   providedIn: 'root',
   // ---------------------------------
-  // compile-time config
+  // environment file
   // ---------------------------------
   // useClass: environment.production ? RemoteLoggerService : LocalLoggerService,
   // useClass: inject(ENVIRONMENT).production
@@ -102,17 +103,10 @@ export class LoggerWrapperService {
   //   inject(ENVIRONMENT).mode === 'prod'
   //     ? RemoteLoggerService
   //     : LocalLoggerService,
-  // useFactory: () => {
-  //   const http = inject(HttpClient);
-
-  //   return environment.mode === 'prod'
-  //     ? new RemoteLoggerService(http)
-  //     : new LocalLoggerService(http);
-  // },
   // useFactory: () =>
   //   environment.mode === 'prod'
-  //     ? inject(RemoteLoggerService)
-  //     : inject(LocalLoggerService),
+  //     ? new RemoteLoggerService()
+  //     : new LocalLoggerService(),
   // useClass: ConcreteLoggerService,
   // ---------------------------------
   // sync runtime config
@@ -127,7 +121,7 @@ export class LoggerWrapperService {
   // ---------------------------------
   // async runtime config with wrapper service
   // ---------------------------------
-  useClass: LoggerWrapperService,
+  // useClass: LoggerWrapperService,
 })
 export abstract class LoggerService {
   abstract log(message: string): void;

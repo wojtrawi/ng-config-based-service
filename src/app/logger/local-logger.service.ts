@@ -1,17 +1,20 @@
-import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 
+import { UserService } from '../user.service';
 import { LoggerService } from './logger.service';
 
 // @Injectable()
 @Injectable({ providedIn: 'root' })
 export class LocalLoggerService implements LoggerService {
-  constructor(private readonly http: HttpClient) {
+  private readonly userService = inject(UserService);
+
+  constructor() {
     console.log('[LocalLoggerService]: created');
   }
 
   log(message: string): void {
-    console.log(`[LocalLoggerService]: ${message}`);
-    console.log(this.http);
+    console.log(
+      `[LocalLoggerService][${this.userService.getNick()}]: ${message}`
+    );
   }
 }

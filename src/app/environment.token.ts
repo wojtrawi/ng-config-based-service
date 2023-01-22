@@ -7,10 +7,7 @@ export interface EnvironmentData {
   mode: 'dev' | 'prod';
 }
 
-export const ENVIRONMENT = new InjectionToken<EnvironmentData>(
-  'environment file',
-  {
-    providedIn: 'root',
-    factory: () => environment as EnvironmentData,
-  }
-);
+export const ENVIRONMENT = new InjectionToken<EnvironmentData>('ENVIRONMENT', {
+  providedIn: 'root',
+  factory: () => environment as EnvironmentData,
+});

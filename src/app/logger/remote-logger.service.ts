@@ -1,18 +1,21 @@
-import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 
+import { UserService } from '../user.service';
 import { LoggerService } from './logger.service';
 
 // @Injectable()
 @Injectable({ providedIn: 'root' })
 export class RemoteLoggerService implements LoggerService {
-  constructor(private readonly http: HttpClient) {
+  private readonly userService = inject(UserService);
+
+  constructor() {
     console.log('[RemoteLoggerService]: created');
   }
 
   log(message: string): void {
     // Call to monitoring service e.g. Sentry
-    console.log(`[RemoteLoggerService]: ${message}`);
-    console.log(this.http);
+    console.log(
+      `[RemoteLoggerService][${this.userService.getNick()}]: ${message}`
+    );
   }
 }

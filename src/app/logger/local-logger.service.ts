@@ -6,9 +6,7 @@ import { LoggerService } from './logger.service';
 @Injectable()
 // @Injectable({ providedIn: 'root' })
 export class LocalLoggerService implements LoggerService {
-  private readonly userService = inject(UserService);
-
-  constructor() {
+  constructor(private readonly userService: UserService) {
     console.log('[LocalLoggerService]: created');
   }
 

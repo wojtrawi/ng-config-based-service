@@ -1,4 +1,10 @@
-import { Injectable, inject, EnvironmentInjector, Type } from '@angular/core';
+import {
+  Injectable,
+  inject,
+  EnvironmentInjector,
+  Type,
+  Injector,
+} from '@angular/core';
 import { tap } from 'rxjs';
 
 import { ConcreteLoggerClassLoaderService } from './concrete-logger-class-loader.service';
@@ -40,8 +46,16 @@ export class LoggerWrapperService implements LoggerService {
   }
 
   private createLogger(concreteLoggerClass: Type<LoggerService>): void {
-    this.environmentInjector.runInContext(() => {
-      this.logger = new concreteLoggerClass();
+    // this.environmentInjector.runInContext(() => {
+    //   this.logger = new concreteLoggerClass();
+    // });
+    // this.logger = this.environmentInjector.get(concreteLoggerClass);
+
+    const auxInjector = Injector.create({
+      parent: this.environmentInjector,
+      providers: [{ provide: concreteLoggerClass }],
     });
+
+    this.logger = auxInjector.get(concreteLoggerClass);
   }
 }
